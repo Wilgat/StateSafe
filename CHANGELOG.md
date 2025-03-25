@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.1] - 2025-3-25
+
+### Added
+- package.json for build
+- Add compiled js
+
+### Fixed
 ## [1.0.0] - 2025-3-25
 
 ### Added
