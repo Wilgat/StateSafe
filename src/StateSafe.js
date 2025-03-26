@@ -462,7 +462,6 @@ var FSM = /** @class */ (function () {
      */
     FSM.prototype.invokeAfterHooks = function (eventName) {
         var hooks = this.afterHooks[eventName] || [];
-        console.log("Invoke After hook");
         hooks.forEach(function (hook) { return hook(); }); // Execute all hooked methods
     };
     return FSM;
@@ -714,7 +713,7 @@ var StateSafe = /** @class */ (function (_super) {
             });
         });
     };
-    StateSafe.version = '1.0.1';
+    StateSafe.version = '1.0.2';
     // ANSI color codes
     StateSafe.BOLD = '\x1b[1m';
     StateSafe.DARK_AMBER = '\x1b[33m';

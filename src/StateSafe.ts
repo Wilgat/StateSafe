@@ -437,7 +437,6 @@ class FSM {
      */
     private invokeAfterHooks(eventName: string): void {
         const hooks = this.afterHooks[eventName] || [];
-        console.log("Invoke After hook")
         hooks.forEach(hook => hook()); // Execute all hooked methods
     }
 }
@@ -453,7 +452,7 @@ class FSM {
  */
 import * as fs from 'fs'; // Importing the file system module
 export class StateSafe extends FSM {
-    static version: string = '1.0.1';
+    static version: string = '1.0.2';
 
     private authorName: string;
     private appName: string;

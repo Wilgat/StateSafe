@@ -441,7 +441,6 @@ class FSM {
      */
     invokeAfterHooks(eventName) {
         const hooks = this.afterHooks[eventName] || [];
-        console.log("Invoke After hook");
         hooks.forEach(hook => hook()); // Execute all hooked methods
     }
 }
@@ -674,7 +673,7 @@ class StateSafe extends FSM {
     }
 }
 exports.StateSafe = StateSafe;
-StateSafe.version = '1.0.1';
+StateSafe.version = '1.0.2';
 // ANSI color codes
 StateSafe.BOLD = '\x1b[1m';
 StateSafe.DARK_AMBER = '\x1b[33m';

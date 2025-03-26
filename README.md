@@ -2,8 +2,15 @@
 
 StateSafe is a finite state machine (FSM) implementation that extends the basic FSM functionality by adding robust logging capabilities. It provides a structured approach to managing states and transitions within your application while offering informative logging features for monitoring application behavior.
 
+## Project Locations
+
+## Typescript implementation
+ - The project StateSafe (typescript implementation) is located at https://github.com/Wilgat/StateSafe and,
+ - the npmjs package is at https://www.npmjs.com/package/statesafe
+
 ## Python version
-A corresponding python version is at https://github.com/Wilgat/Statelogic or https://pypi.org/project/statelogic/
+ - The project StateLogic (python implementation) corresponding at https://github.com/Wilgat/Statelogic and,
+ - the pypi package is at https://pypi.org/project/statelogic/
 
 ## Key Features
 
@@ -36,6 +43,154 @@ npm install statesafe
 ```
 
 ## Usage
+
+### Import / Require library
+For nodejs, to create a new object, import the {author}, {application}, {majorVersion}, {minorVersion}, {patchVersion}
+```
+StateSafe = require ('StateSafe').StateSafe;
+let ss = new StateSafe("Test Author", "StateSafe Test", "1", "0", "0");
+```
+
+For typescript, use the following
+```
+import { StateSafe } from 'StateSafe';
+let ss = new StateSafe("Test Author", "StateSafe Test", "1", "0", "0");
+```
+
+### Adding transitions
+The first step of using StateSafe is adding transition:
+
+For nodejs,
+```
+StateSafe = require ('StateSafe').StateSafe;
+let ss = new StateSafe("Test Author", "StateSafe Test", "1", "0", "0");
+ss.transition('start', 'idle', 'busy'); 
+```
+
+For typescript,
+```
+import { StateSafe } from 'StateSafe';
+let ss = new StateSafe("Test Author", "StateSafe Test", "1", "0", "0");
+ss.transition('start', 'idle', 'busy'); 
+```
+
+### Adding more transitions
+A finite state machine is designed by switch transitions, it's important to add sufficient transitions:
+
+For nodejs,
+```
+StateSafe = require ('StateSafe').StateSafe;
+let ss = new StateSafe("Test Author", "StateSafe Test", "1", "0", "0");
+ss.transition("freeze", "LIQUID", "SOLID");   // Liquid to Solid
+ss.transition("melts", "SOLID", "LIQUID");    // Solid to Liquid
+ss.transition("evaporate", "LIQUID", "GAS");   // Liquid to Gas
+ss.transition("condense", "GAS", "LIQUID");    // Gas to Liquid
+ss.transition("sublimate", "SOLID", "GAS");    // Solid to Gas
+ss.transition("deposition", "GAS", "SOLID");    // Gas to Solid
+```
+
+For typescript,
+```
+import { StateSafe } from 'StateSafe';
+let ss = new StateSafe("Test Author", "StateSafe Test", "1", "0", "0");
+ss.transition("freeze", "LIQUID", "SOLID");   // Liquid to Solid
+ss.transition("melts", "SOLID", "LIQUID");    // Solid to Liquid
+ss.transition("evaporate", "LIQUID", "GAS");   // Liquid to Gas
+ss.transition("condense", "GAS", "LIQUID");    // Gas to Liquid
+ss.transition("sublimate", "SOLID", "GAS");    // Solid to Gas
+ss.transition("deposition", "GAS", "SOLID");    // Gas to Solid
+```
+
+### Setting default state after transitions:
+You can only choose one of the states within all the transactions.
+
+For nodejs,
+```
+StateSafe = require ('StateSafe').StateSafe;
+let ss = new StateSafe("Test Author", "StateSafe Test", "1", "0", "0");
+ss.transition("freeze", "LIQUID", "SOLID");   // Liquid to Solid
+ss.transition("melts", "SOLID", "LIQUID");    // Solid to Liquid
+ss.transition("evaporate", "LIQUID", "GAS");   // Liquid to Gas
+ss.transition("condense", "GAS", "LIQUID");    // Gas to Liquid
+ss.transition("sublimate", "SOLID", "GAS");    // Solid to Gas
+ss.transition("deposition", "GAS", "SOLID");    // Gas to Solid
+ss.state("SOLID");
+```
+
+For typescript,
+```
+import { StateSafe } from 'StateSafe';
+let ss = new StateSafe("Test Author", "StateSafe Test", "1", "0", "0");
+ss.transition("freeze", "LIQUID", "SOLID");   // Liquid to Solid
+ss.transition("melts", "SOLID", "LIQUID");    // Solid to Liquid
+ss.transition("evaporate", "LIQUID", "GAS");   // Liquid to Gas
+ss.transition("condense", "GAS", "LIQUID");    // Gas to Liquid
+ss.transition("sublimate", "SOLID", "GAS");    // Solid to Gas
+ss.transition("deposition", "GAS", "SOLID");    // Gas to Solid
+ss.state("SOLID");
+```
+
+### Add incorrect state is not working,
+For nodejs,
+```
+StateSafe = require ('StateSafe').StateSafe;
+let ss = new StateSafe("Test Author", "StateSafe Test", "1", "0", "0");
+ss.transition("freeze", "LIQUID", "SOLID");   // Liquid to Solid
+ss.transition("melts", "SOLID", "LIQUID");    // Solid to Liquid
+ss.transition("evaporate", "LIQUID", "GAS");   // Liquid to Gas
+ss.transition("condense", "GAS", "LIQUID");    // Gas to Liquid
+ss.transition("sublimate", "SOLID", "GAS");    // Solid to Gas
+ss.transition("deposition", "GAS", "SOLID");    // Gas to Solid
+ss.state("RANDOM");    // Not working
+ss.state("SOLID");     // Working, set to SOLID as initial state value
+ss.state("LIQUID");    // Not Working, remain SOLID
+```
+
+For typescript,
+```
+import { StateSafe } from 'StateSafe';
+let ss = new StateSafe("Test Author", "StateSafe Test", "1", "0", "0");
+ss.transition("freeze", "LIQUID", "SOLID");   // Liquid to Solid
+ss.transition("melts", "SOLID", "LIQUID");    // Solid to Liquid
+ss.transition("evaporate", "LIQUID", "GAS");   // Liquid to Gas
+ss.transition("condense", "GAS", "LIQUID");    // Gas to Liquid
+ss.transition("sublimate", "SOLID", "GAS");    // Solid to Gas
+ss.transition("deposition", "GAS", "SOLID");    // Gas to Solid
+ss.state("RANDOM");    // Not working
+ss.state("SOLID");     // Working, set to SOLID as initial state value
+ss.state("LIQUID");    // Not Working, remain SOLID
+```
+### Uses fire or trigger the transition directly
+
+For NodeJS,
+```
+StateSafe = require ('StateSafe').StateSafe;
+let ss = new StateSafe("Test Author", "StateSafe Test", "1", "0", "0");
+ss.transition("freeze", "LIQUID", "SOLID");   // Liquid to Solid
+ss.transition("melts", "SOLID", "LIQUID");    // Solid to Liquid
+ss.transition("evaporate", "LIQUID", "GAS");   // Liquid to Gas
+ss.transition("condense", "GAS", "LIQUID");    // Gas to Liquid
+ss.transition("sublimate", "SOLID", "GAS");    // Solid to Gas
+ss.transition("deposition", "GAS", "SOLID");    // Gas to Solid
+ss.state("SOLID");     // Working, set to SOLID as initial state value
+ss.fire("melts");      // become LIQUID
+ss.infoMsg(`The state : ${ss.state()}`, "STATE");
+```
+
+For typescript,
+```
+import { StateSafe } from 'StateSafe';
+let ss = new StateSafe("Test Author", "StateSafe Test", "1", "0", "0");
+ss.transition("freeze", "LIQUID", "SOLID");   // Liquid to Solid
+ss.transition("melts", "SOLID", "LIQUID");    // Solid to Liquid
+ss.transition("evaporate", "LIQUID", "GAS");   // Liquid to Gas
+ss.transition("condense", "GAS", "LIQUID");    // Gas to Liquid
+ss.transition("sublimate", "SOLID", "GAS");    // Solid to Gas
+ss.transition("deposition", "GAS", "SOLID");    // Gas to Solid
+ss.state("SOLID");     // Working, set to SOLID as initial state value
+ss.fire("melts");      // become LIQUID
+ss.infoMsg(`The state : ${ss.state()}`, "STATE");
+```
 
 ### Simple example:
 ```
